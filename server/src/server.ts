@@ -13,19 +13,18 @@ const prisma = new PrismaClient({
 })
 
 //localhost:1456/ads
-app.get('/games', async (request, response) => {
+app.get("/games", async (request, response) => {
     const games = await prisma.game.findMany({
         include: {
             _count: {
-                select: {
-                    ads: true,
-                }
-            } 
-        }
-    })
-
+            select: {
+                ads: true,
+            },
+            },
+        },
+    });
     return response.json(games);
-});
+    });
 
 app.post('/games/:id/ads', async (request, response) => {
     const gameId = request.params.id;
